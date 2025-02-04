@@ -1,22 +1,51 @@
-// El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 let amigos = [];
 
-function agregar(nombre){
-    document.getElementById("section-title").textContent = nombre;
-    if (typeof nombre !== "string" || nombre.trim() === ""){
+// Agregar amigo a la lista
+function agregarAmigo() {
+    const nombre = document.getElementById("amigo").value.trim();
+
+    if (nombre === "") {
         alert("Nombre no válido");
-        console.clear()
-        return 0;}
-    else{
-        console.log(nombre)
-        amigos.push(nombre)
-        console.clear()
-        return (amigos)
+        return;
+    }
+
+    amigos.push(nombre); // Agregar el nombre al array
+    document.getElementById("amigo").value = ""; // Limpiar el campo de texto
+    mostrarAmigos(); // Actualizar la lista inmediatamente
+}
+
+// Mostrar la lista de amigos en pantalla
+function mostrarAmigos() {
+    let lista = document.getElementById("lista-amigos");
+    lista.innerHTML = ""; // Limpiar la lista antes de actualizar
+
+    for (let i = 0; i < amigos.length; i++) {
+        let li = document.createElement("li");
+        li.textContent = amigos[i];
+        lista.appendChild(li);
     }
 }
-    console.log("elige una opción de las presentadas a continuación: ")
-while(True){
-    console.log("1. Ingresa el nombre")
-    console.log("1. Ingresa el nombre")
 
+// Sortear un amigo aleatorio
+function sortearAmigo() {
+    let resultado = document.getElementById("resultado");
+
+    if (amigos.length === 0) {
+        resultado.innerHTML = "No hay amigos en la lista para sortear.";
+        return;
+    }
+
+    let indiceAleatorio = Math.floor(Math.random() * amigos.length);
+    let amigoSorteado = amigos[indiceAleatorio];
+
+    resultado.innerHTML = `🎉 El amigo secreto es: <strong>${amigoSorteado}</strong>`;
 }
+
+// Event Listeners para los botones
+document.getElementById("btn-agregar").addEventListener("click", agregar);
+document.getElementById("btn-mostrar").addEventListener("click", mostrarAmigos);
+document.getElementById("btn-sortear").addEventListener("click", sortearAmigo);
+
+amigos.push(nombre); // Agregar el nombre al array
+document.getElementById("amigo").value = ""; // Limpiar el campo de texto
+mostrarAmigos(); // Actualizar la lista inmediatamente
